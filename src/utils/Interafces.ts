@@ -24,7 +24,6 @@ export interface EventEmitterResponse {
     data: any;
     usedCache: boolean;
 }
-// Importing all Configs, to a single interface
 export interface Configs {
     misc: MiscConfig;
     cache: CacheConfig;

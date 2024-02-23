@@ -77,6 +77,12 @@ export default class Client extends EventEmitter {
                 github_api_key: ""
             };
         }
+        // REALLY check, adding "" if any key is undefined
+        if (!apikeys.twitter_api_key) apikeys.twitter_api_key = "";
+        if (!apikeys.discord_api_key) apikeys.discord_api_key = "";
+        if (!apikeys.any_bot_api_key) apikeys.any_bot_api_key = "";
+        if (!apikeys.github_api_key) apikeys.github_api_key = "";
+
 
         if (!config) {
             config = {
@@ -89,6 +95,33 @@ export default class Client extends EventEmitter {
                     cacheTime: 300000
                 }
             };
+        }
+        // the same of up, but with config
+        if (!config.misc) {
+            config.misc = {
+                debug: false,
+                reallyDisableCache: false
+            };
+        }
+        // the SAME, but with config.misc
+        if (!config.misc.debug) {
+            config.misc.debug = false;
+        }
+        if (!config.misc.reallyDisableCache) {
+            config.misc.reallyDisableCache = false;
+        }
+        if (!config.cache) {
+            config.cache = {
+                allowCache: true,
+                cacheTime: 300000
+            };
+        }
+        // adivina, lo mismo, pero con config.cache, IM CRYING RIGHT NOW
+        if (!config.cache.allowCache) {
+            config.cache.allowCache = true;
+        }
+        if (!config.cache.cacheTime) {
+            config.cache.cacheTime = 300000;
         }
 
         this.apikeys = apikeys;
