@@ -9,7 +9,7 @@ export enum LogLevel {
 export class LoggerXD {
     private static getTimeStamp(): string {
         const now = new Date();
-        return now.toISOString();
+        return now.toLocaleString();
     }
 
     private static log(level: LogLevel, message: string): void {
@@ -20,10 +20,17 @@ export class LoggerXD {
             [LogLevel.ERROR]: chalk.red,
         };
 
-        const logLevelColor = logLevelColors[level] || chalk.white;
-        const logMessage = `${LoggerXD.getTimeStamp()} [${level}]: ${message}`;
+        const logLevelColorsBg = {
+            [LogLevel.INFO]: chalk.bgBlue,
+            [LogLevel.WARNING]: chalk.bgYellow,
+            [LogLevel.ERROR]: chalk.bgRed,
+        };
 
-        console.log(logLevelColor(logMessage));
+
+        const logLevelColor = logLevelColors[level] || chalk.white;
+        const logLevelColorBg = logLevelColorsBg[level] || chalk.white;
+        
+        console.log(`[${chalk.green(LoggerXD.getTimeStamp())}${chalk.reset()}] ${logLevelColorBg(chalk.white(`[${level}]`))} ${chalk.reset()}${level === LogLevel.ERROR || level === LogLevel.WARNING?logLevelColor(message) : message}`);
     }
     
     static info(message: string): void {
@@ -38,3 +45,4 @@ export class LoggerXD {
         LoggerXD.log(LogLevel.ERROR, message);
     }
 }
+export default LoggerXD
