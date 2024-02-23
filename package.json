@@ -33,7 +33,7 @@
     "docs": "nodemon --exec ts-node ./scripts/BuildDocs.ts",
     "publishAll": "ts-node ./scripts/RunAll.ts",
     "updateDocs": "ts-node ./scripts/BuildDocs.ts && ts-node ./scripts/PublishGit.ts",
-    "updateCode": "ts-node ./scripts/Build.ts && ts-node ./scripts/PublishNPM.ts && ts-node ./scripts/PublishGit.ts"
+    "updateCode": "ts-node ./scripts/Build.ts && ts-node ./scripts/PublishNPM.ts && ts-node ./scripts/PublishGit.ts Running update Code command"
 
   },
   "author": "galleniz, mdcdev",
