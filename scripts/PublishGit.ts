@@ -1,6 +1,6 @@
 // publish git
 
-import { execSync } from 'child_process';
+import { exec, execSync } from 'child_process';
 import Log from './src/Log';
 // obtain the args!!
 const args = process.argv.slice(2);
@@ -37,6 +37,9 @@ async function publishToGit() {
         execSync(`git commit -m "${commitMessage} | ${type} ${filePath}"`);
     });
 
+    execSync("git add .")
+    execSync(`git commit -m "${commitMessage}"`);
+    execSync("git pull");
     // push
     execSync("git push");
 
