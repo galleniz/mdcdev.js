@@ -32,7 +32,6 @@ export default class DiscordUsers extends BaseRoot {
      */
     public async avatar(username: string = "@me"): Promise<any> {
         const res = await this.client.request(`https://api.mdcdev.me/v2/discord/users/${username}/avatar`, "GET");
-        delete res?.data;
         return res;
     }
 
@@ -43,7 +42,6 @@ export default class DiscordUsers extends BaseRoot {
      */
     public async banner(username: string = "@me"): Promise<any> {
         const res = await this.client.request(`https://api.mdcdev.me/v2/discord/users/${username}/banner`, "GET");
-        delete res?.data;
         return res;
     }
 }
