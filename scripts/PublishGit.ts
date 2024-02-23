@@ -4,7 +4,7 @@ import { execSync } from 'child_process';
 import Log from './src/Log';
 // obtain the args!!
 const args = process.argv.slice(2);
-const commitMessage = args.join("") || "auto commit";
+const commitMessage = args.join(" ") || "auto commit";
 Log.info("Commit message: " + commitMessage);
 async function main() {
     Log.log("Publishing to git...")
