@@ -32,11 +32,21 @@ export interface CacheConfig {
     cacheTime: number;
 }
 /**
+ * Image, yay, this is the image, but, why this is here? I don't know, but, it's here
+ */
+export interface Image {
+    url : string | undefined;
+    name : string | undefined;
+    image: string;
+    proxy_url?: string;
+}
+/**
  * Why this is called EventEmitterResponse? I don't know, but it's the response of the EventEmitter.
  */
 export interface EventEmitterResponse { 
     url: string;
     data: any;
+    image ?:  Image,
     usedCache: boolean;
 }
 /**
