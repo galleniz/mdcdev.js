@@ -37,8 +37,10 @@ async function publishToGit() {
         execSync(`git commit -m "${commitMessage} | ${type} ${filePath}"`);
     });
 
+    try {
     execSync("git add .")
     execSync(`git commit -m "${commitMessage}"`);
+    } catch(e) {}
     execSync("git pull");
     // push
     execSync("git push");
