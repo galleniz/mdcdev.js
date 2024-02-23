@@ -83,5 +83,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 If you have any questions or feedback, feel free to contact me:
 
-- Email: your-email@example.com
-- GitHub: [Your GitHub Username](https://github.com/your-username)
+- Email: niz@mdcdev.me
+- GitHub: [@galleniz](https://github.com/galleniz)
+- Discord: [@Galleniz](https://discord.com/users/482637805034668032)
