@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-   "target": "es5",
+   "target": "es2017",
    "module": "commonjs",
    "lib": [
     "es2017",
@@ -31,16 +31,5 @@
 
    // "theme": "minimal" 
    }
-    /**
-    */
-    
-  /*"typedocOptions": {
-    
-    "entryPoints": [
-    "index.ts"
-    ],
-    "out": "docs",
-    "themeColor": "#c27ba0",
-    "name": "api.mdcdev.me - v2.0",
-   }*/
+
  }
