@@ -25,8 +25,8 @@ async function publishToGit() {
     files.forEach(file => {
         var fileStatus = file.slice(0, 1);
         var filePath = file.slice(2);
-        Log.info("Adding file: " + filePath);
-        execSync(`git add ${filePath}`);
+        Log.info("Adding file: ./" + filePath);
+        execSync(`git add ./${filePath}`);
         // comit it
         Log.info("Committing file: " + file);
         // if file is created put "create" instead of "update", or if it was deleted put "delete"
@@ -34,16 +34,14 @@ async function publishToGit() {
         console.log(filePath);
         var type = fileStatus.startsWith("A") ? "create" : fileStatus.startsWith("D") ? "delete" : "update";
       
-        execSync(`git commit -m "${commitMessage} | ${type} ${filePath}"`);
+        execSync(`git commit -m "${commitMessage} | ${type} ${filePath.split("/").pop()}"`);
     });
 
     try {
-    execSync("git add .")
-    execSync(`git commit -m "${commitMessage}"`);
+        execSync("git add .")
+        execSync(`git commit -m "${commitMessage}"`);
     } catch(e) {}
-    try {
-        execSync("git pull");
-    } catch(e) {}
+
     // push
     execSync("git push");
 
