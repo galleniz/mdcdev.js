@@ -1,5 +1,5 @@
 import { Axios } from "axios";
-import { ApiKeys, Configs, EventEmitterResponse } from "./utils/Interafces";
+import { ApiKeys, Configs, EventEmitterResponse, Image } from "./utils/Interafces";
 import  {LoggerXD as Logger} from "./utils/Logger";
 import { EventEmitter } from 'events';
 import axios from 'axios';
@@ -60,6 +60,8 @@ export default class Client extends EventEmitter {
      * The avatar generator.
      */
     public generateAvatar: Generate;
+    public saveImages: boolean = false;
+    public saveOn: string = "./img";
 
     /**
      * Creates an instance of Client.
@@ -149,6 +151,10 @@ export default class Client extends EventEmitter {
         this.x = this.twitter;
         this.generateAvatar = new Generate(this);
         Logger.info("Client has been initialized");
+        // disable axios errors
+        axios.interceptors.response.use(response => response, error => {
+            return error.response;
+        });
     }
 
     /**
@@ -209,12 +215,52 @@ export default class Client extends EventEmitter {
         if (this.debug) {
             Logger.info("New request to " + endpoint);
         }
+        
+        const response = (await this.axios.get(endpoint));
+        if ( response.status != 200) {
+            Logger.error("Request to " + endpoint + " has failed with status code " + response.status + " and message " + response.statusText);
+        } else {
+        const type = response.headers["content-type"] || "application/json";
+        // rerequest the image, to get their bytes and put in this var
+        const imageBytes = type.includes("image") ? await (await this.axios.get(endpoint, { responseType: "arraybuffer" })).data : undefined;
+        var image: Image | undefined= type ?
+            type.includes("image") ?
+                {
+                    url: endpoint,
+                    name: endpoint.split("/")[endpoint.split("/").length - 2] +"-" +endpoint.split("/")[endpoint.split("/").length - 1],
+                    image: imageBytes.toString("base64"),
+                }
+                : undefined 
+        : undefined;
+        // save the image, if it's an image, save on ./img/${img.name}.format
+        if (image && this.saveImages) {
+            const _path = (await import("path"))
+            const fs = (await import("fs"));
 
+            // path will be: ./img/${img.name}.format
+            // if image.name doesnt ends with any image format, add .png
+            if (!image.name?.endsWith(".png") && !image.name?.endsWith(".jpg") && !image.name?.endsWith(".jpeg") && !image.name?.endsWith(".webp") && !image.name?.endsWith(".gif")) {
+                image.name += ".png";
+            }
+            const path = _path.join(__dirname, this.saveOn,`${image.name}`);
+            // if img doesnt exists mkdir it
+            if (!fs.existsSync(_path.join(__dirname, this.saveOn))) {
+                (fs).mkdirSync(_path.join(__dirname, this.saveOn));
+            }
+            Logger.info("Saving image to " + path);
+            
+            fs.writeFileSync(path, imageBytes);
+        }
+        }
         const responseData: EventEmitterResponse = {
             url: endpoint,
-            data: (await this.axios.get(endpoint)).data,
+            data: await response.data,
+            image,
+
             usedCache: false
         };
+        if (!responseData.data ) delete responseData.data;
+        if (!responseData.image ) delete responseData.image; else delete responseData.data;
 
         if (responseData.data === null) responseData.usedCache = false;
         this.emit("response", responseData);
