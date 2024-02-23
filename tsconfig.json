@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+   "target": "es5",
+   "module": "commonjs",
+   "lib": [
+    "es2017",
+    "es7",
+    "es6",
+    "dom"
+   ],
+   "declaration": true,
+   "outDir": "dist",
+   "strict": true,
+   "esModuleInterop": true
+  },
+  "exclude": [
+   "node_modules",
+   "dist"
+  ],
+  
+  "typedocOptions": {
+    "out": "docs",
+    "name": "MDCDEV.js",
+    "themeColor": "#6A329F",
+
+    "entryPoints": [
+      "index.ts"
+      ],
+    //"readme": "none",
+    "plugin": ["typedoc-material-theme"],
+
+   // "theme": "minimal" 
+   }
+    /**
+    */
+    
+  /*"typedocOptions": {
+    
+    "entryPoints": [
+    "index.ts"
+    ],
+    "out": "docs",
+    "themeColor": "#c27ba0",
+    "name": "api.mdcdev.me - v2.0",
+   }*/
+ }
