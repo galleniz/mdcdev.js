@@ -41,7 +41,9 @@ async function publishToGit() {
     execSync("git add .")
     execSync(`git commit -m "${commitMessage}"`);
     } catch(e) {}
-    execSync("git pull");
+    try {
+        execSync("git pull");
+    } catch(e) {}
     // push
     execSync("git push");
 
