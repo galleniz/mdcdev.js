@@ -1,5 +1,5 @@
 import Client from "./Client";
-import { ApiKeys } from "./utils/Interafces";
+import { ApiKeys } from "./utils/Interfaces";
 import  Requester from "./Requester";
 
 /**
