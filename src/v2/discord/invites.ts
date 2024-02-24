@@ -10,7 +10,7 @@ export default class DiscordInvites extends BaseRoot {
         LoggerXD.info("DiscordInvites class has been initialized");
     }
 
-    public async get(code: string = "@me") {
+    public async get(code: string = "dae") {
         // yo toda una ingeniera en software:
         return await this.client.request(`https://api.mdcdev.me/v2/discord/invites/${code}`, "GET");
     }

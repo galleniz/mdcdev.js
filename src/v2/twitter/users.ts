@@ -21,29 +21,29 @@ export default class TwitterUsers extends BaseRoot {
 
     /**
      * Retrieves information about a Twitter user.
-     * @param {string} [username="@me"] - The username of the Twitter user. Defaults to "@me" which represents the authenticated user.
+     * @param {string} [username="@mdc_dev"] - The username of the Twitter user. Defaults to "@mdc_dev" which represents the authenticated user.
      * @returns {Promise<any>} - A promise that resolves with the user information.
      */
-    public async get(username: string = "@me"): Promise<any> {
+    public async get(username: string = "mdc_dev"): Promise<any> {
         return await this.client.request(`https://api.mdcdev.me/v2/twitter/users/${username}`, "GET");
     }
 
     /**
      * Retrieves the avatar of a Twitter user.
-     * @param {string} [username="@me"] - The username of the Twitter user. Defaults to "@me" which represents the authenticated user.
+     * @param {string} [username="@mdc_dev"] - The username of the Twitter user. Defaults to "@mdc_dev" which represents the authenticated user.
      * @returns {Promise<any>} - A promise that resolves with the avatar image data.
      */
-    public async avatar(username: string = "@me"): Promise<any> {
+    public async avatar(username: string = "mdc_dev"): Promise<any> {
         const res = await this.client.request(`https://api.mdcdev.me/v2/twitter/users/${username}/avatar`, "GET");
         return res;
     }
 
     /**
      * Retrieves the banner image of a Twitter user.
-     * @param {string} [username="@me"] - The username of the Twitter user. Defaults to "@me" which represents the authenticated user.
+     * @param {string} [username="@mdc_dev"] - The username of the Twitter user. Defaults to "@mdc_dev" which represents the authenticated user.
      * @returns {Promise<any>} - A promise that resolves with the banner image data.
      */
-    public async banner(username: string = "@me"): Promise<any> {
+    public async banner(username: string = "mdc_dev"): Promise<any> {
         const res = await this.client.request(`https://api.mdcdev.me/v2/twitter/users/${username}/banner`, "GET");
         return res;
     }

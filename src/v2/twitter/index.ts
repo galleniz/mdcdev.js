@@ -31,6 +31,6 @@ export default class IndexTwitter {
         this.tweets = new Tweets(client);
         this.users = new TwitterUsers(client);
         
-        LoggerXD.info("Twitter / X API v2 loaded");
+        LoggerXD.info("Twitter / X API v2 loaded :3");
     }
 }
