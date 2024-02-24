@@ -3,15 +3,30 @@ import Client from "../Client";
 import { GayFont } from "../utils/Interfaces";
 import { LoggerXD } from "../utils/Logger";
 
+/**
+ * Represents a class for generating avatars.
+ * @extends BaseRoot
+ */
 export default class Generate extends BaseRoot {
+    /**
+     * Constructs a new instance of the Generate class.
+     * @param {Client} client - The client object.
+     */
     constructor(client: Client) {
-        // private access to api keys in client
         super(client.getApiKeys(), client);
         if (this.client.debug)
         LoggerXD.info("Generate Avatar class has been initialized");
     }
 
-    public async generate(text: string = "Niz", color?: string, size?: number, font?: GayFont) {
+    /**
+     * Generates an avatar with the specified parameters.
+     * @param {string} text - The text to be displayed on the avatar.
+     * @param {string} [color] - The background color of the avatar.
+     * @param {number} [size] - The size of the avatar.
+     * @param {GayFont} [font] - The font settings for the text on the avatar.
+     * @returns {Promise<any>} - The generated avatar.
+     */
+    public async generate(text: string = "Niz", color?: string, size?: number, font?: GayFont): Promise<any> {
         const params = new URLSearchParams([
             font?.color ? ["fontcolor", font.color] : [],
             color ? ["backgroundcolor", color] : [],
