@@ -23,8 +23,8 @@ async function publishToGit() {
 
     // Add each file
     files.forEach(file => {
-        var fileStatus = file.slice(0, 1);
-        var filePath = file.slice(2);
+        var fileStatus = file.slice(0, 1).trim();
+        var filePath = file.slice(2).trim();
         Log.info("Adding file: ./" + filePath);
         execSync(`git add ./${filePath}`);
         // comit it
