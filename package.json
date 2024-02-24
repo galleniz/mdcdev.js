@@ -20,7 +20,7 @@
     "typescript": "^5.3.3"
   },
   "name": "mdcdev.js",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "An api interactor for api.mdcdev.me",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
