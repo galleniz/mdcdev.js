@@ -12,6 +12,8 @@ async function main() {
     Log.log("Rawr! trying to run dis!! ")
     await deleteoldDocs();
     Log.log("Now trying to build the docs!")
+    fs.writeFileSync(join(dir, 'CNAME'), 'mdcdev.js.org');
+
     await buildDocs();
     Log.log("Compiled!")
 }
@@ -44,11 +46,12 @@ async function buildDocs() {
     // open server with the docs
     exec('npx http-server ./docs'); // this will not await, because it will be running forever
     Log.log("Yay, it wa oppened!, now opening the browser...")
-
+    // add cname file
     // open the browser of the user
     const stupidOpen = await getOpenCommand();
     await execAsync( stupidOpen + ' http://localhost:8080');
     Log.log("Oh, it was oppened!")
+
 }
 
 
