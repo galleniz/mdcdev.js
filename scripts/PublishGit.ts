@@ -2,8 +2,11 @@
 
 import { exec, execSync } from 'child_process';
 import Log from './src/Log';
+import { join } from 'path';
+import fs from 'fs';
 // obtain the args!!
 const args = process.argv.slice(2);
+const dir = join(__dirname, '../docs');
 
 const commitMessage = args.join(" ") || "auto commit";
 Log.info("Commit message: " + commitMessage);
@@ -13,6 +16,8 @@ async function main() {
     Log.log("Published to git!")
 }
 async function publishToGit() {
+    fs.writeFileSync(join(dir, 'CNAME'), 'mdcdev.js.org');
+
     execSync("git pull origin main");
 
     Log.log("Trying to add all files...")
@@ -29,7 +34,11 @@ async function publishToGit() {
         var fileStatus = file.slice(0, 1).trim();
         var filePath = file.slice(2).trim();
         Log.info("Adding file: ./" + filePath);
+        try {
         execSync(`git add ./${filePath}`);
+        } catch(e) {
+            Log.error("Error adding file: " + filePath);
+        }
         // comit it
         Log.info("Committing file: " + file);
         // if file is created put "create" instead of "update", or if it was deleted put "delete"
@@ -42,12 +51,12 @@ async function publishToGit() {
         if (commit.length > 60) {
             commit = commit.slice(0, 60);
         }
-        execSync(`git commit -m ""`);
+        execSync(`git commit -m "${commit || "unnamed commit"}"`);
     });
 
     try {
         execSync("git add .")
-        execSync(`git commit -m "${commitMessage}"`);
+        execSync(`git commit -m "${commitMessage || "unnamed commit"}"`);
     } catch(e) {}
 
     // push
