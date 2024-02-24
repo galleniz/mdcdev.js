@@ -1,6 +1,6 @@
 import BaseRoot from "../BaseRoot";
 import Client from "../Client";
-import { GayFont } from "../utils/Interafces";
+import { GayFont } from "../utils/Interfaces";
 import { LoggerXD } from "../utils/Logger";
 
 export default class Generate extends BaseRoot {
