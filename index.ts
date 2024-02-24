@@ -14,7 +14,7 @@ import IndexTwitter from "./src/v2/twitter/index";
 
 import Generate from "./src/v2/Generate";
 import { LoggerXD as Logger , LogLevel} from "./src/utils/Logger";
-import * as Interafces from "./src/utils/Interafces";
+import * as Interfaces from "./src/utils/Interfaces";
 
 
-export {Client, BaseRoot, Requester, DiscordApplications, DiscordExperiments, DiscordGuilds, DiscordInvites, DiscordUsers, IndexDiscord, Tweets, TwitterUsers, IndexTwitter, Generate, Logger, LogLevel, Interafces}
+export {Client, BaseRoot, Requester, DiscordApplications, DiscordExperiments, DiscordGuilds, DiscordInvites, DiscordUsers, IndexDiscord, Tweets, TwitterUsers, IndexTwitter, Generate, Logger, LogLevel, Interfaces}

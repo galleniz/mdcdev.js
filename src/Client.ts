@@ -1,5 +1,5 @@
 import { Axios } from "axios";
-import { ApiKeys, Configs, EventEmitterResponse, Image } from "./utils/Interafces";
+import { ApiKeys, Configs, EventEmitterResponse, Image } from "./utils/Interfaces";
 import  {LoggerXD as Logger} from "./utils/Logger";
 import { EventEmitter } from 'events';
 import axios from 'axios';
