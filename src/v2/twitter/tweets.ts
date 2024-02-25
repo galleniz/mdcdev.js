@@ -1,5 +1,6 @@
 import BaseRoot from "../../BaseRoot";
 import Client from "../../Client";
+import { Tweet } from "../../utils/Interfaces";
 import { LoggerXD } from "../../utils/Logger";
 
 /**
@@ -23,10 +24,9 @@ export default class Tweets extends BaseRoot {
     /**
      * Retrieves a tweet by its ID.
      * @param {string} [id=""] - The ID of the tweet to retrieve.
-     * @returns {Promise<any>} - A promise that resolves with the tweet data.
      */
     public async get(id: string = "") {
-        return await this.client.request(`https://api.mdcdev.me/v2/twitter/tweets/${id}`, "GET");
+        return await this.client.request<Tweet, string>(`https://api.mdcdev.me/v2/twitter/tweets/${id}`, "GET");
     }
 
 }
