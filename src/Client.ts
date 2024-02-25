@@ -133,7 +133,7 @@ export default class Client extends EventEmitter {
         this.reallyDisableCache = config.misc.reallyDisableCache;
         this.lastCacheTime = Date.now();
 
-        this.on("response", (response: EventEmitterResponse) => {
+        this.on("response", (response: EventEmitterResponse<any>) => {
             if (this.debug) {
                 Logger.info("New response, from local event emitter in url " + response.url);
             }
@@ -155,6 +155,12 @@ export default class Client extends EventEmitter {
         axios.interceptors.response.use(response => response, error => {
             return error.response;
         });
+        // request to https://api.mdcdev.me/, if it fails, the api is down, and warn with Logger.warn
+        this.request("https://api.mdcdev.me/").then((res) => {
+            if (res?.code !== 200) {
+                Logger.warning("The API is down, requests will fail.");
+            }
+        });
     }
 
     /**
@@ -169,14 +175,16 @@ export default class Client extends EventEmitter {
      * Sends a fake response event.
      * @returns {EventEmitterResponse} The fake response.
      */
-    public hi(): EventEmitterResponse {
-        const fakeResponse: EventEmitterResponse = {
+    public hi(): EventEmitterResponse<any> {
+        const fakeResponse: EventEmitterResponse<any> = {
             url: "https://api.mdcdev.me/this_route_does_not_exist",
             data: {
                 message: "hi there~! <3",
                 code: 200,
                 usedCache: false
             },
+            code: 200,
+            message: "hi there~! <3",
             usedCache: false
         };
         this.emit("response", fakeResponse);
@@ -188,10 +196,10 @@ export default class Client extends EventEmitter {
     /**
      * Sends a request to the API.
      * @param {string} endpoint - The API endpoint.
-     * @param {any} [data] - The request data.
-     * @returns {Promise<EventEmitterResponse | undefined>} The response from the API.
+     * @param {CustomData} [data] - The request data.
+     * @returns {Promise<EventEmitterResponse<T> >} The response from the API.
      */
-    public async request(endpoint: string, data?: any): Promise<EventEmitterResponse | undefined> {
+    public async request<T, CustomData>(endpoint: string, data?: CustomData): Promise<EventEmitterResponse<T>> {
         if (this.cache.has(endpoint) && this.allowCache && !this.reallyDisableCache) {
             if (Date.now() - this.lastCacheTime > this.cacheTime) {
                 this.cache.clear();
@@ -203,10 +211,11 @@ export default class Client extends EventEmitter {
             if (this.debug) {
                 Logger.info("Request to " + endpoint + " has been cached");
             }
-            const responseData: EventEmitterResponse = {
+            const responseData: EventEmitterResponse<T> = {
                 url: endpoint,
                 data: this.cache.get(endpoint),
-                usedCache: true
+                usedCache: true,
+                code: 200,
             };
             this.emit("response", responseData);
             return responseData;
@@ -252,12 +261,14 @@ export default class Client extends EventEmitter {
             fs.writeFileSync(path, imageBytes);
         }
         }
-        const responseData: EventEmitterResponse = {
+        const responseData: EventEmitterResponse<T> = {
             url: endpoint,
             data: await response.data,
             image,
 
-            usedCache: false
+            usedCache: false,
+            code: await response.status,
+            message: await response.statusText
         };
         if (!responseData.data ) delete responseData.data;
         if (!responseData.image ) delete responseData.image; else delete responseData.data;
