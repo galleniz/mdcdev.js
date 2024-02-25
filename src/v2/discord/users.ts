@@ -1,5 +1,6 @@
 import BaseRoot from "../../BaseRoot";
 import Client from "../../Client";
+import { User } from "../../utils/Interfaces";
 import { LoggerXD } from "../../utils/Logger";
 
 /**
@@ -19,29 +20,26 @@ export default class DiscordUsers extends BaseRoot {
     /**
      * Retrieves information about a Discord user.
      * @param {string} [id="@me"] - The ID of the user. Defaults to the current user.
-     * @returns {Promise<any>} - A promise that resolves with the user information.
      */
-    public async get(id: string = "@me"): Promise<any> {
-        return await this.client.request(`https://api.mdcdev.me/v2/discord/users/${id}`, "GET");
+    public async get(id: string = "@me") {
+        return await this.client.request<User, string>(`https://api.mdcdev.me/v2/discord/users/${id}`, "GET");
     }
 
     /**
      * Retrieves the avatar of a Discord user.
      * @param {string} [username="@me"] - The username of the user. Defaults to the current user.
-     * @returns {Promise<any>} - A promise that resolves with the avatar image.
      */
-    public async avatar(username: string = "@me"): Promise<any> {
-        const res = await this.client.request(`https://api.mdcdev.me/v2/discord/users/${username}/avatar`, "GET");
+    public async avatar(username: string = "@me") {
+        const res = await this.client.request<User, string>(`https://api.mdcdev.me/v2/discord/users/${username}/avatar`, "GET");
         return res;
     }
 
     /**
      * Retrieves the banner of a Discord user.
      * @param {string} [username="@me"] - The username of the user. Defaults to the current user.
-     * @returns {Promise<any>} - A promise that resolves with the banner image.
      */
-    public async banner(username: string = "@me"): Promise<any> {
-        const res = await this.client.request(`https://api.mdcdev.me/v2/discord/users/${username}/banner`, "GET");
+    public async banner(username: string = "@me") {
+        const res = await this.client.request<User, string>(`https://api.mdcdev.me/v2/discord/users/${username}/banner`, "GET");
         return res;
     }
 }
