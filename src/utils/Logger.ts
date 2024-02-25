@@ -29,8 +29,10 @@ export class LoggerXD {
 
         const logLevelColor = logLevelColors[level] || chalk.white;
         const logLevelColorBg = logLevelColorsBg[level] || chalk.white;
+        // [${chalk.green(LoggerXD.getTimeStamp())}${chalk.reset()}] ${logLevelColorBg(chalk.white(`[${level}]`))} ${chalk.reset()}${level === LogLevel.ERROR || level === LogLevel.WARNING?logLevelColor(message) : message}
+        //
         
-        console.log(`[${chalk.green(LoggerXD.getTimeStamp())}${chalk.reset()}] ${logLevelColorBg(chalk.white(`[${level}]`))} ${chalk.reset()}${level === LogLevel.ERROR || level === LogLevel.WARNING?logLevelColor(message) : message}`);
+        console.log(`[${chalk.green(LoggerXD.getTimeStamp())}] [${logLevelColor(`${level}`)}]: ${["ERROR", "WARNING"].includes(level) ? logLevelColor(message) : message}`);
     }
     
     static info(message: string): void {
