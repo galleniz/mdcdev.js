@@ -24,9 +24,8 @@ export default class Generate extends BaseRoot {
      * @param {string} [color] - The background color of the avatar.
      * @param {number} [size] - The size of the avatar.
      * @param {GayFont} [font] - The font settings for the text on the avatar.
-     * @returns {Promise<any>} - The generated avatar.
      */
-    public async generate(text: string = "Niz", color?: string, size?: number, font?: GayFont): Promise<any> {
+    public async generate(text: string = "Niz", color?: string, size?: number, font?: GayFont) {
         const params = new URLSearchParams([
             font?.color ? ["fontcolor", font.color] : [],
             color ? ["backgroundcolor", color] : [],
