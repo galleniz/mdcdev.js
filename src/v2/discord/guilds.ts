@@ -1,5 +1,6 @@
 import BaseRoot from "../../BaseRoot";
 import Client from "../../Client";
+import { Guild } from "../../utils/Interfaces";
 import { LoggerXD } from "../../utils/Logger";
 
 /**
@@ -22,9 +23,8 @@ export default class DiscordGuilds extends BaseRoot {
     /**
      * Retrieves information about a Discord guild.
      * @param {string} [id="949096817050648636"] - The ID of the guild. Defaults to "949096817050648636" which represents the current user's guild.
-     * @returns {Promise<any>} - A promise that resolves with the guild information.
      */
-    public async get(id: string = "949096817050648636"): Promise<any> {
-        return await this.client.request(`https://api.mdcdev.me/v2/discord/guilds/${id}`, "GET");
+    public async get(id: string = "949096817050648636") {
+        return await this.client.request<Guild, string>(`https://api.mdcdev.me/v2/discord/guilds/${id}`, "GET");
     }
 }
