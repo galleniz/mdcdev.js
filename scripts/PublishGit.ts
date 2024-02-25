@@ -7,10 +7,14 @@ import fs from 'fs';
 // obtain the args!!
 const args = process.argv.slice(2);
 const dir = join(__dirname, '../docs');
+const buildDocs = args.includes("--build-docs");
 
-const commitMessage = args.join(" ") || "auto commit";
+const commitMessage = args.join(" ").replace("--build-docs", "") || "auto commit";
 Log.info("Commit message: " + commitMessage);
 async function main() {
+    if (buildDocs) {
+        await import("./BuildDocs");
+    }
     Log.log("Publishing to git...")
     await publishToGit();
     Log.log("Published to git!")
