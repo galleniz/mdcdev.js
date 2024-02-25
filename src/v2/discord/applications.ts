@@ -1,5 +1,6 @@
 import BaseRoot from "../../BaseRoot";
 import Client from "../../Client";
+import { Application, EventEmitterResponse } from "../../utils/Interfaces";
 import { LoggerXD } from "../../utils/Logger";
 
 /**
@@ -20,9 +21,9 @@ export default class DiscordApplications extends BaseRoot {
     /**
      * Retrieves a Discord application by its ID.
      * @param {string} [id="@me"] - The ID of the Discord application. Defaults to "@me" which represents the current user's application.
-     * @returns {Promise<any>} - A promise that resolves with the application data.
+     * @returns {Promise<EventEmitterResponse<Application> | undefined> } - A promise that resolves with the application data.
      */
-    public async get(id: string = "@me"): Promise<any> {
-        return await this.client.request(`https://api.mdcdev.me/v2/discord/applications/${id}`, "GET");
+    public async get(id: string = "@me"): Promise<EventEmitterResponse<Application> | undefined> {
+        return await this.client.request<Application, undefined>(`https://api.mdcdev.me/v2/discord/applications/${id}`);
     }
 }
